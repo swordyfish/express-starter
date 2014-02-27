@@ -34,6 +34,9 @@ app.get('/stuff', function(req, res) {
 	res.render('stuff.html', { });
 });
 
+app.get('/imgrr', function(req, res) {
+	res.render('imgrr.html', { });
+});
 ///////////////////////////////////////////////////////////////////////////////
 // RUN CONFIGURATION                                                         //
 ///////////////////////////////////////////////////////////////////////////////

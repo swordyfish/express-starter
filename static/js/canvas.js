@@ -57,6 +57,36 @@ $(document).ready(function() {
   	context.strokeStyle = 'blue'
   	context.strokeRect(100,100,100,100);
   });
+
+  $('#p9').click(function(){
+  	for (var i=0; i<=4; i++){ 
+  		context.strokeRect(50*i,0,50,50);
+  	}
+  	});
+
+  $('#p10').click(function(){
+  	for (var i=0; i<=99; i++){ 
+  		context.strokeRect(5*i,0,5,5);
+  	}
+  	});
+
+  $('#p11').click(function(){
+  	for (var i=0; i<=99; i++){ 
+  		for (var j=0; j<=99; j++){
+  			context.strokeRect(5*i,5*j,5,5);
+  		}
+  	}
+  	});
+
+  $('#p12').click(function(){ 
+  	for (var i=1; i<=20; i++){
+  	context.beginPath()
+  	context.arc(250,250,10*i,Math.PI/2,5*(Math.PI/2));
+  	context.closePath()
+  	context.stroke()
+  }
+  });
+
   //---------------------------------------------------------------------------
   //Write your code for p1-p12 here
   //

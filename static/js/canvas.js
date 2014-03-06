@@ -36,6 +36,27 @@ $(document).ready(function() {
   	context.stroke()
   });
 
+  $('#p6').click(function(){
+  	context.strokeStyle = 'green';
+  	context.strokeRect(250,300,200,100);
+  });
+
+  $('#p7').click(function(){ 
+  	context.beginPath()
+  	context.fillStyle = 'red'
+  	context.arc(100,150,100,Math.PI/2,5*(Math.PI/2));
+  	context.closePath()
+  	context.fill()
+  	context.strokeStyle = 'red'
+  	context.stroke()
+  });
+
+  $('#p8').click(function(){
+  	context.fillStyle = 'yellow'
+  	context.fillRect(100,100,100,100);
+  	context.strokeStyle = 'blue'
+  	context.strokeRect(100,100,100,100);
+  });
   //---------------------------------------------------------------------------
   //Write your code for p1-p12 here
   //

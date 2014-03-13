@@ -1,4 +1,4 @@
-alert('Poopiehead!!'); // edit me!
+vvalert('Poopiehead!!'); // edit me!
 
 // Problem 1 (Say Hello!) ---------------------------------------------------
 $('#say_hello').click(function() {alert('Hello world!')

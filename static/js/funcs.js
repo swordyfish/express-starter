@@ -21,24 +21,41 @@ $(document).ready(function() {
   };
 
 var drawTriplet = function(x, y, radius, color) {
-    context.strokeStyle=color
-    context.beginPath()
-    context.arc(x,y-radius*(1/3),radius,Math.PI/2,5*(Math.PI/2))
-    context.closePath()
-    context.stroke()
-
-    context.beginPath()
-    context.arc(x-radius*(2/3),y+radius*(2/3),radius,Math.PI/2,5*(Math.PI/2))
-    context.closePath()
-    context.stroke()
-
-    context.beginPath()
-    context.arc(x+radius*(2/3),y+radius*(2/3),radius,Math.PI/2,5*(Math.PI/2))
-    context.closePath()
-    context.stroke()
+    drawCircle(x,y-radius*(1/3),radius,color)
+    drawCircle(x-radius*(2/3),y+radius*(2/3),radius,color)
+    drawCircle(x+radius*(2/3),y+radius*(2/3),radius,color)
 };
-  // Write drawTriplet function here
 
+var drawTriangle = function(x, y, sideLen, color) {
+  context.fillStyle=color
+  context.beginPath()
+  context.moveTo(x,y)
+  context.lineTo(x-sideLen,y+Math.sqrt(3)*sideLen)
+  context.lineTo(x+sideLen,y+Math.sqrt(3)*sideLen)
+  context.lineTo(x,y)
+  context.fill()
+};
+
+var drawTriforce = function(x, y, color){
+  context.strokeStyle=color
+  drawTriangle(x,y,25, color)
+  drawTriangle(x-25,y+25*Math.sqrt(3),25, color)
+  drawTriangle(x+25,y+25*Math.sqrt(3),25, color)
+};
+
+var drawTripleTriforce = function(x, y, color){
+  context.strokeStyle=color
+  drawTriforce(x,y, color)
+  drawTriforce(x-50,y+50*Math.sqrt(3), color)
+  drawTriforce(x+50,y+50*Math.sqrt(3), color)
+};
+
+var drawSierpinski = function(x, y, color){
+  context.strokeStyle=color
+  drawTripleTriforce(x,y, color)
+  drawTripleTriforce(x-100,y+100*Math.sqrt(3), color)
+  drawTripleTriforce(x+100,y+100*Math.sqrt(3), color)
+};
   // Challenge:
   // Write drawTriangle, drawTriforce, drawTripleTriforce,
   // drawSierpinski functions here
@@ -83,6 +100,21 @@ var drawTriplet = function(x, y, radius, color) {
     drawTriplet(400,300,50, 'maroon');
   });
 
+  $('#p9').click(function(){
+    drawTriangle(100,10,50, 'blue');
+  });
+
+  $('#p10').click(function(){
+    drawTriforce(100,10,'purple');
+  });
+
+  $('#p11').click(function(){
+    drawTripleTriforce(300,10,'pink');
+  });
+
+  $('#p12').click(function(){
+    drawSierpinski(200,0,'orange');
+  });
   //---------------------------------------------------------------------------
   //Write your code for p5-p11 here
   //

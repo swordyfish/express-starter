@@ -16,12 +16,17 @@ $(document).ready(function() {
     context.fill();
   };
 
-  var x = 20
+  var ball = {
+    x: 20,
+    y: 20,
+    radius: 20
+  }
 
   var updateGame = function() {
-    x += 5
+    ball.x += 5
+    ball.y += 5
     context.clearRect(0,0, canvas.width, canvas.height);
-    drawCircle(x,20,20, 'purple');
+    drawCircle(ball.x,ball.y,ball.radius, 'purple');
     setTimeout(updateGame, 10);
 
     //PUT STUFF HERE

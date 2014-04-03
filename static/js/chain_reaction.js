@@ -11,16 +11,22 @@ var balls = [];
 var b0 = {
   x:100,
   y:100,
+  vx: 5,
+  vy: 5,
   radius:25
 };
 var b1 = {
   x:300,
   y:100,
+  vx: 5,
+  vy: 5,
   radius:10
 };
 var b2 = {
   x:500,
   y:100,
+  vx: 5,
+  vy: 5,
   radius:15
 };
 
@@ -38,12 +44,26 @@ balls.push(b2);
 
 
   // Run an interation of the game
-  var updateGame = function() {
 
+
+  var updateGame = function() {
+  for (var i = 0; i< balls.length; i++)  { 
+    balls[i].x += balls[i].vx;
+    balls[i].y += balls[i].vy;
+    if ((balls[i].x >= canvas.width-balls[i].radius) || (balls[i].x <= balls[i].radius)) {
+      balls[i].vx = -balls[i].vx;
+    } 
+    if ((balls[i].y >= canvas.height-balls[i].radius || (balls[i].y <= balls[i].radius))) {
+      balls[i].vy = - balls[i].vy;
+}};
+context.clearRect(0,0, canvas.width, canvas.height);
     for (var i = 0; i< balls.length; i++){
       drawCircle(balls[i].x,balls[i].y,balls[i].radius, 'purple');
     }
+    
     // PUT STUFF HERE
+
+    setTimeout(updateGame, 10);
   };
 
   // Handle a canvas click event

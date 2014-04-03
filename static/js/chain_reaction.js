@@ -6,33 +6,18 @@ $(document).ready(function() {
   var height = canvas.height;
 
   // PUT STUFF HERE
-
 var balls = [];
-var b0 = {
-  x:100,
-  y:100,
-  vx: 5,
-  vy: 5,
-  radius:25
-};
-var b1 = {
-  x:300,
-  y:100,
-  vx: 5,
-  vy: 5,
-  radius:10
-};
-var b2 = {
-  x:500,
-  y:100,
-  vx: 5,
-  vy: 5,
-  radius:15
-};
-
-balls.push(b0);
-balls.push(b1);
-balls.push(b2);
+var numBalls = 10;
+for (var i = 0; i< numBalls; i++){
+  var b = {
+    x:canvas.width*Math.random(),
+    y:canvas.height*Math.random(),
+    vx:7*Math.random(),
+    vy:7*Math.random(),
+    radius:25
+  }
+  balls.push(b);
+}
 
   var drawCircle = function(x, y, radius, color) {
     context.fillStyle=color;
@@ -60,7 +45,7 @@ context.clearRect(0,0, canvas.width, canvas.height);
     for (var i = 0; i< balls.length; i++){
       drawCircle(balls[i].x,balls[i].y,balls[i].radius, 'purple');
     }
-    
+
     // PUT STUFF HERE
 
     setTimeout(updateGame, 10);
@@ -72,6 +57,16 @@ context.clearRect(0,0, canvas.width, canvas.height);
     var x = e.pageX - $(this).offset().left;
     var y = e.pageY - $(this).offset().top;
     // PUT STUFF HERE
+    for (var i = 0; i< 2; i++){
+  var c = {
+    x:canvas.width*Math.random(),
+    y:canvas.height*Math.random(),
+    vx:7*Math.random(),
+    vy:7*Math.random(),
+    radius:25
+  }
+  balls.push(c);
+}
   });
 
   updateGame();

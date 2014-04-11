@@ -43,9 +43,15 @@ var reactions = [];
       balls[i].vy = - balls[i].vy;
 }};
 context.clearRect(0,0, canvas.width, canvas.height);
-    for (var i = 0; i< balls.length; i++){
+  for (var i = 0; i< balls.length; i++){
       drawCircle(balls[i].x,balls[i].y,balls[i].radius, 'pink');
     }
+
+  for (var i = 0; i< reactions.length; i++){
+    if (reactions[i].radius < 30) {
+      reactions[i].radius ++;
+    }
+  }
 
   for (var i = 0; i< reactions.length; i++){
       drawCircle(reactions[i].x,reactions[i].y,reactions[i].radius,reactions[i].color);
@@ -62,15 +68,13 @@ var colors = ['antiquewhite', 'aquamarine', 'coral', 'lightsteelblue', 'plum', '
     var x = e.pageX - $(this).offset().left;
     var y = e.pageY - $(this).offset().top;
     // PUT STUFF HERE
-    for (var i = 0; i< 2; i++){
   var c = {
     x:e.pageX - $(this).offset().left,
     y:e.pageY - $(this).offset().top,
-    radius:30,
+    radius:1,
     color:colors[Math.floor(Math.random()*colors.length)]
   }
   reactions.push(c);
-}
   });
 
   updateGame();

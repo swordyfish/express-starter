@@ -27,6 +27,7 @@ for (var i = 0; i< numBalls; i++){
     context.fill();
   };
 
+var reactions = [];
 
   // Run an interation of the game
 
@@ -43,14 +44,18 @@ for (var i = 0; i< numBalls; i++){
 }};
 context.clearRect(0,0, canvas.width, canvas.height);
     for (var i = 0; i< balls.length; i++){
-      drawCircle(balls[i].x,balls[i].y,balls[i].radius, 'purple');
+      drawCircle(balls[i].x,balls[i].y,balls[i].radius, 'pink');
     }
 
+  for (var i = 0; i< reactions.length; i++){
+      drawCircle(reactions[i].x,reactions[i].y,reactions[i].radius,reactions[i].color);
+    }
     // PUT STUFF HERE
 
-    setTimeout(updateGame, 10);
+    requestAnimationFrame(updateGame);
   };
 
+var colors = ['antiquewhite', 'aquamarine', 'coral', 'lightsteelblue', 'plum', 'tan'];
   // Handle a canvas click event
   $('#game_canvas').click(function(e) {
     // Find the mouse x and y relative to the top-left corner of the canvas
@@ -59,13 +64,12 @@ context.clearRect(0,0, canvas.width, canvas.height);
     // PUT STUFF HERE
     for (var i = 0; i< 2; i++){
   var c = {
-    x:canvas.width*Math.random(),
-    y:canvas.height*Math.random(),
-    vx:7*Math.random(),
-    vy:7*Math.random(),
-    radius:25
+    x:e.pageX - $(this).offset().left,
+    y:e.pageY - $(this).offset().top,
+    radius:30,
+    color:colors[Math.floor(Math.random()*colors.length)]
   }
-  balls.push(c);
+  reactions.push(c);
 }
   });
 

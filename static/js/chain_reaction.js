@@ -57,15 +57,20 @@ context.clearRect(0,0, canvas.width, canvas.height);
     }
     // PUT STUFF HERE
 
-  for (var i = 0; i < balls.length; i++) {
-        for (var j = 0; j < reactions.length; j++) {
+  for (var j = 0; j < reactions.length; j++){ 
+        for (var i = 0; i < balls.length; i++) {
           var xdiff = balls[i].x - reactions[j].x
           var ydiff = balls[i].y - reactions[j].y
           var dist = Math.sqrt(xdiff * xdiff + ydiff * ydiff)
+          var collided = false
         if (dist < balls[i].radius + reactions[j].radius) {
-          alert('BOOM');
+          (collided = true);
         }
-        }
+        
+        if (collided === true) {
+          balls.splice(i,1);
+          i--
+        }};
 }
 
     requestAnimationFrame(updateGame);

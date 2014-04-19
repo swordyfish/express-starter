@@ -46,11 +46,20 @@ context.clearRect(0,0, canvas.width, canvas.height);
       drawCircle(balls[i].x,balls[i].y,balls[i].radius, "pink");
     }
 
+
   for (var i = 0; i< reactions.length; i++){
-    if (reactions[i].radius < 30) {
+      reactions[i].timer ++;
+    if (reactions[i].timer > 200) {
+      reactions[i].radius --;
+    }
+    else if (reactions[i].radius < 30) {
       reactions[i].radius ++;
     }
-  }
+    if (reactions[i].radius === 0) {
+      reactions.splice(i,1);
+      i--
+    }
+  };
 
   for (var i = 0; i< reactions.length; i++){
       drawCircle(reactions[i].x,reactions[i].y,reactions[i].radius,reactions[i].color);
@@ -72,6 +81,7 @@ context.clearRect(0,0, canvas.width, canvas.height);
             x:balls[i].x,
             y:balls[i].y,
             radius:1,
+            timer: 0
             
           } 
           reactions.push(d);
@@ -94,7 +104,8 @@ var colors = ['antiquewhite', 'aquamarine', 'coral', 'lightsteelblue', 'plum', '
     x:e.pageX - $(this).offset().left,
     y:e.pageY - $(this).offset().top,
     radius:1,
-    color: colors[Math.floor(Math.random()*colors.length)]
+    color: colors[Math.floor(Math.random()*colors.length)],
+    timer: 0
   }
   reactions.push(c);
   });

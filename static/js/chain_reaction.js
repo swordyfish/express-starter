@@ -6,6 +6,8 @@ $(document).ready(function() {
   var height = canvas.height;
 
   // PUT STUFF HERE
+var numReacted = 0;
+var reacting = false;
 var balls = [];
 var numBalls = 10;
 for (var i = 0; i< numBalls; i++){
@@ -87,18 +89,25 @@ context.clearRect(0,0, canvas.width, canvas.height);
           reactions.push(d);
             balls.splice(i,1);
           i--
+          numReacted ++
         }};
 }
-
+    context.fillStyle = 'purple';
+    context.fillText("Reactions:"+numReacted,50,50)
+    context.font = "20px Arial";
     requestAnimationFrame(updateGame);
+
   };
 
 var colors = ['antiquewhite', 'aquamarine', 'coral', 'lightsteelblue', 'plum', 'tan'];
   // Handle a canvas click event
   $('#game_canvas').click(function(e) {
     // Find the mouse x and y relative to the top-left corner of the canvas
+    if (reacting == false) {
+
     var x = e.pageX - $(this).offset().left;
     var y = e.pageY - $(this).offset().top;
+reacting = true;
     // PUT STUFF HERE
   var c = {
     x:e.pageX - $(this).offset().left,
@@ -106,9 +115,11 @@ var colors = ['antiquewhite', 'aquamarine', 'coral', 'lightsteelblue', 'plum', '
     radius:1,
     color: colors[Math.floor(Math.random()*colors.length)],
     timer: 0
+
+
   }
   reactions.push(c);
-  });
+  }});
 
   updateGame();
 });

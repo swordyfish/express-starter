@@ -6,6 +6,8 @@ $(document).ready(function() {
   var height = canvas.height;
 
   // PUT STUFF HERE
+var gameState = 'menu';
+var menuText = 'Click to play!';
 var numReacted = 0;
 var reacting = false;
 var balls = [];
@@ -34,6 +36,20 @@ var reactions = [];
   // Run an interation of the game
 
   var updateGame = function() {
+    context.clearRect(0,0, canvas.width, canvas.height);
+
+    if (gameState == 'menu') {
+    context.fillStyle = 'purple';
+    context.fillText(menuText,100,100);
+    context.font = "20px Arial";
+    }
+    else if (gameState == 'playing') { 
+      if ((reacting === true) && (reactions.length === 0)) {
+    menuText = 'Game Over! You reacted '+ numReacted +' balls!';
+    gameState = 'menu';
+  };
+
+
   for (var i = 0; i< balls.length; i++)  { 
     balls[i].x += balls[i].vx;
     balls[i].y += balls[i].vy;
@@ -43,7 +59,7 @@ var reactions = [];
     if ((balls[i].y >= canvas.height-balls[i].radius || (balls[i].y <= balls[i].radius))) {
       balls[i].vy = - balls[i].vy;
 }};
-context.clearRect(0,0, canvas.width, canvas.height);
+
   for (var i = 0; i< balls.length; i++){
       drawCircle(balls[i].x,balls[i].y,balls[i].radius, "pink");
     }
@@ -64,7 +80,7 @@ context.clearRect(0,0, canvas.width, canvas.height);
   };
 
   for (var i = 0; i< reactions.length; i++){
-      drawCircle(reactions[i].x,reactions[i].y,reactions[i].radius,reactions[i].color);
+      drawCircle(reactions[i].x,reactions[i].y,reactions[i].radius,reactionColor);
     }
     // PUT STUFF HERE
 
@@ -84,6 +100,7 @@ context.clearRect(0,0, canvas.width, canvas.height);
             y:balls[i].y,
             radius:1,
             timer: 0
+          
             
           } 
           reactions.push(d);
@@ -91,7 +108,8 @@ context.clearRect(0,0, canvas.width, canvas.height);
           i--
           numReacted ++
         }};
-}
+}}
+
     context.fillStyle = 'purple';
     context.fillText("Reactions:"+numReacted,50,50)
     context.font = "20px Arial";
@@ -100,10 +118,29 @@ context.clearRect(0,0, canvas.width, canvas.height);
   };
 
 var colors = ['antiquewhite', 'aquamarine', 'coral', 'lightsteelblue', 'plum', 'tan'];
+var reactionColor = colors[Math.floor(Math.random()*colors.length)];
   // Handle a canvas click event
   $('#game_canvas').click(function(e) {
     // Find the mouse x and y relative to the top-left corner of the canvas
-    if (reacting == false) {
+    if (gameState === 'menu'){
+      gameState = 'playing';
+      reacting = false;
+      numReacted = 0;
+      balls = [];
+        for (var i = 0; i< numBalls; i++){
+          var b = {
+          x:canvas.width*Math.random(),
+          y:canvas.height*Math.random(),
+          vx:7*Math.random(),
+          vy:7*Math.random(),
+          radius:25
+          }
+          balls.push(b);
+          }
+
+
+    }
+    else if ((reacting === false) && (gameState === 'playing')) {
 
     var x = e.pageX - $(this).offset().left;
     var y = e.pageY - $(this).offset().top;
@@ -113,13 +150,14 @@ reacting = true;
     x:e.pageX - $(this).offset().left,
     y:e.pageY - $(this).offset().top,
     radius:1,
-    color: colors[Math.floor(Math.random()*colors.length)],
     timer: 0
 
 
   }
   reactions.push(c);
-  }});
+  }
+
+  });
 
   updateGame();
 });
